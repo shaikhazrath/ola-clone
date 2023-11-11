@@ -1,0 +1,39 @@
+{% extends 'Base.html' %}
+{% load static %}
+{% block css %}
+<link rel="stylesheet" href="{% static 'css/cars.css' %}">
+{% endblock  %}
+{% block script %}
+{% endblock %}
+
+{% block content %}
+<div class="container">
+
+<div class="section1">
+    <div>
+        <p>
+         {{ location }}</p>
+    </div>
+    <div>
+        <p>{{ pickup_date }}  to {{ delivery_date }}</p>
+    </div>
+</div >
+<div class="section2">
+
+        {% for car in available_cars %}
+        <div class="card" style="width: 18rem;">
+            <img src="{{ car.image.url }}" class="card-img-top" alt="{{ car.brand }}">
+            <div class="card-body">
+              <p class="card-text">{{ car.brand }}</p>
+              <p>Location: {{ car.location }}</p>
+              <p>Rs {{car.total_price}}</p>
+            </div>
+          </div>
+        {% empty %}
+            <h1>No cars available for the selected criteria.</h1>
+        {% endfor %}
+    </div>
+</div>
+
+
+{% endblock %}
