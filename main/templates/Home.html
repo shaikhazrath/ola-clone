@@ -1,76 +1,57 @@
 {% extends 'Base.html' %}
 {% load static %}
+
 {% block css %}
 <link rel="stylesheet" href="{% static 'css/home.css' %}">
-{% endblock  %}
+<link rel="stylesheet" href="{% static 'css/jquery-ui.theme.css' %}">
+
+{% endblock %}
+
 {% block script %}
 <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<script>
+    jQuery(document).ready(function($) {
+        var dateFormat = "yy-mm-dd";
+        var today = new Date();
+
+        $("#pickupDate, #deliveryDate").datepicker({
+            dateFormat: dateFormat,
+            minDate: today,
+            onSelect: function(dateText, inst) {
+                var selectedDate = new Date(dateText);
+                var dateType = $(this).attr("id");
+                if (dateType === "pickupDate") {
+                    $("#deliveryDate").datepicker("option", "minDate", selectedDate);
+                } else {
+                    $("#pickupDate").datepicker("option", "maxDate", selectedDate);
+                }
+            }
+        });
+    });
+</script>
 {% endblock %}
 
 {% block content %}
 <div class="main">
-  <!-- banner -->
-  <div class="banner"> 
-    <img src="{% static 'images/heroimage.jpg' %}" class="bannerimage" alt="unexpected error">
-    <div class="form-overlay">
-      <form class="form" method="post" action="{% url 'cars' %}">
-        {% csrf_token %}
-        <select id="locationInput" class="input input1" name="location" required>
-            <option value="" disabled selected>Select a location</option>
-            <option value="place1">Place 1</option>
-            <option value="place2">Place 2</option>
-            <option value="place3">Place 3</option>
-        </select>
-        <input type="text" placeholder="Pickup Date" class="input" id="pickupDate" name="pickupDate" required>
-        <input type="text" placeholder="Delivery Date" class="input" id="deliveryDate" name="deliveryDate" required>
-        <button class="button" id="submitButton">Get Car</button>
-    </form>
+    <!-- banner -->
+    <div class="banner">
+        <img src="{% static 'images/heroimage.jpg' %}" class="bannerimage" alt="unexpected error">
+        <div class="form-overlay">
+            <form class="form" method="post" action="{% url 'cars' %}">
+                {% csrf_token %}
+                <select id="cityInput" class="input input1" name="city" required>
+                    <option value="" disabled selected>Select a location</option>
+                    <option value="city1">city 1</option>
+                    <option value="city2">city 2</option>
+                    <option value="city3">city 3</option>
+                </select>
+                <input type="text" placeholder="Pickup Date" class="input" id="pickupDate" name="pickupDate" required>
+                <input type="text" placeholder="Delivery Date" class="input" id="deliveryDate" name="deliveryDate" required>
+                <button type="submit" class="button" id="submitButton">Get Car</button>
+            </form>
+        </div>
     </div>
-  </div>
 </div>
-<script>
- $(function() {
-    var dateFormat = "dd-mm-yy";
-    var today = new Date();
-
-    $("#pickupDate, #deliveryDate").datepicker({
-        dateFormat: dateFormat,
-        minDate: today, 
-        maxDate: null, 
-        onSelect: function(dateText, inst) {
-            var selectedDate = new Date(dateText);
-            var instance = $(this).data("datepicker");
-            var dateType = $(this).attr("id");
-            if (dateType === "pickupDate") {
-                $("#deliveryDate").datepicker("option", "minDate", selectedDate);
-            } else {
-                $("#pickupDate").datepicker("option", "maxDate", selectedDate);
-            }
-            calculateAndLogDays();
-        }
-    });
-
-    function calculateAndLogDays() {
-        var pickupDate = $("#pickupDate").datepicker("getDate");
-        var deliveryDate = $("#deliveryDate").datepicker("getDate");
-        if (pickupDate && deliveryDate) {
-            if (pickupDate.getDate() === new Date(pickupDate.getFullYear(), pickupDate.getMonth() + 1, 0).getDate() &&
-                deliveryDate.getDate() === 1) {
-                deliveryDate = new Date(deliveryDate.getFullYear(), deliveryDate.getMonth(), 0);
-            }
-            var timeDifference = deliveryDate.getTime() - pickupDate.getTime();
-            var daysDifference = timeDifference / (1000 * 3600 * 24); 
-            console.log("Number of days between Pickup Date and Delivery Date: " + daysDifference);
-        }
-    }
-
-
-  });
-
-
-</script>
-
-
 {% endblock %}
