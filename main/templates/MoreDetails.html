@@ -1,0 +1,48 @@
+{% extends 'Base.html' %}
+{% load static %}
+
+{% block css %}
+<!-- <link rel="stylesheet" href="{% static 'css/MoreDetailscss' %}"> -->
+{% endblock %}
+
+{% block script %}
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const storedUserInfo = localStorage.getItem('userinfo');
+        const userInfoObject = JSON.parse(storedUserInfo);
+        if (userInfoObject) {
+            document.getElementById('pickupDate').innerText = 'Pickup Date: ' + userInfoObject.pickupData;
+            document.getElementById('deliveryDate').innerText = 'Delivery Date: ' + userInfoObject.deliveryData;
+            document.getElementById('city').innerText = 'City: ' + userInfoObject.city;
+        } else {
+            console.log('User info not found in local storage');
+        }
+    });
+</script>
+{% endblock %}
+
+{% block content %}
+<div class="main">
+    <h1>{{ car.brand }} Details</h1>
+    
+    <div>
+        <p>Model: {{ car.model }}</p>
+        <p>city: {{ car.city }}</p>
+        <p>pickup location: {{ car.place }}</p>
+        <p>rental_price: {{ car.place }}</p>
+        <img src="{{car.image.url}}" alt="" srcset="">
+
+
+
+
+        <p id="pickupDate"></p>
+        <p id="deliveryDate"></p>
+        <p id="city"></p>
+    </div>
+
+
+    <div>
+        <a href="{% url 'home' %}">Back to Home</a>
+    </div>
+
+{% endblock %}

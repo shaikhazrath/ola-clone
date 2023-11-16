@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import get_object_or_404, render
 import calendar
 from datetime import datetime
 from .models import *
@@ -43,3 +43,12 @@ def getcars(request):
         })
 
     return render(request, 'cars.html')
+
+def more_details_view(request, car_id):
+    car = get_object_or_404(Car, id=car_id)
+    context = {
+        'car': car
+    }
+
+
+    return render(request, 'MoreDetails.html', context)

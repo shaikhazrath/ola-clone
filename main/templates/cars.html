@@ -8,11 +8,23 @@
 {% block script %}
 <script>
     document.addEventListener('DOMContentLoaded', function () {
-        console.log('hello')
+        const city = document.getElementById('cityname').innerText
+        const pickupdata = document.getElementById('pickupdata').innerText
+        const deliverydata = document.getElementById('deliverydata').innerText
+
+        const userInfo = {
+            city: city,
+            pickupData: pickupdata,
+            deliveryData: deliverydata
+        };
+
+        localStorage.setItem('userinfo', JSON.stringify(userInfo));
         document.getElementById('pickupLocationFilter').addEventListener('change', function () {
             const selectedOption = this.value;
+
             const section2 = document.querySelector('.section2');
             const cards = section2.querySelectorAll('.card');
+
 
             const sortedCards = Array.from(cards).sort((a, b) => {
                 const aPlace = a.querySelector('.pickup-place').innerText.toLowerCase();
@@ -42,7 +54,7 @@
             <div>
                 <h5>
                     Selected Location </h5>
-                <h3>
+                <h3 id="cityname">
                     {{ city }}
                 </h3>
             </div>
@@ -61,7 +73,7 @@
                 <h5>
                     From
                 </h5>
-                <h3>
+                <h3 id="pickupdata">
                     {{ pickup_date }}
                 </h3>
             </div>
@@ -70,7 +82,7 @@
                 <h5>
                     To
                 </h5>
-                <h3>
+                <h3 id="deliverydata">
                     {{ delivery_date }}
                 </h3>
             </div>
@@ -80,7 +92,7 @@
     Select You Car
 </h1>
     
-        <div class="container card-grid">
+        <div class="container card-grid section2">
             {% for car in available_cars %}
             <div class="card">
                 <img src="{{ car.image.url }}" alt="{{ car.brand }}">
@@ -101,7 +113,7 @@
                         </div>
                     </div>
                     <div>
-                        <a class="rentbutton" href="/">Rent Now</a>
+                        <a class="rentbutton" href="{% url 'moredetails' car_id=car.id %}">Rent Now</a>
                     </div>
                 </div>
             </div>
