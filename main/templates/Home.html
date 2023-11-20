@@ -11,15 +11,16 @@
 <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
 <script>
-    jQuery(document).ready(function($) {
+    jQuery(document).ready(function ($) {
         var dateFormat = "yy-mm-dd";
         var today = new Date();
 
         $("#pickupDate, #deliveryDate").datepicker({
             dateFormat: dateFormat,
             minDate: today,
-            onSelect: function(dateText, inst) {
+            onSelect: function (dateText, inst) {
                 var selectedDate = new Date(dateText);
                 var dateType = $(this).attr("id");
                 if (dateType === "pickupDate") {
@@ -35,7 +36,6 @@
 
 {% block content %}
 <div class="main">
-    <!-- banner -->
     <div class="banner">
         <img src="{% static 'images/heroimage.jpg' %}" class="bannerimage" alt="unexpected error">
         <div class="form-overlay">
@@ -43,15 +43,146 @@
                 {% csrf_token %}
                 <select id="cityInput" class="input input1" name="city" required>
                     <option value="" disabled selected>Select a location</option>
-                    <option value="city1">city 1</option>
-                    <option value="city2">city 2</option>
-                    <option value="city3">city 3</option>
+                    {% for city in unique_cities %}
+                    <option value="{{ city }}">{{ city }}</option>
+                    {% endfor %}
                 </select>
                 <input type="text" placeholder="Pickup Date" class="input" id="pickupDate" name="pickupDate" required>
-                <input type="text" placeholder="Delivery Date" class="input" id="deliveryDate" name="deliveryDate" required>
+                <input type="text" placeholder="Delivery Date" class="input" id="deliveryDate" name="deliveryDate"
+                    required>
                 <button type="submit" class="button" id="submitButton">Get Car</button>
             </form>
         </div>
     </div>
 </div>
+
+<!--about section-->
+<div class="aboutmain">
+    <div class="info-card">
+        <div class="card-item">
+            <iconify-icon icon="pepicons-print:people" style="color: orange;" width="100" height="100"></iconify-icon>
+            <h1>25,000+</h1>
+            <h2>Happy Customers</h2>
+            <h5>Our dedicated team is proud to have served over 25,000 happy customers, providing top-notch service and
+                satisfaction.</h5>
+        </div>
+        <div class="card-item">
+            <iconify-icon icon="mdi:car" style="color: orange;" width="100" height="100"></iconify-icon>
+            <h1>150+</h1>
+            <h2>Cars</h2>
+            <h5>With a fleet of over 150 cars, we offer a diverse range to meet your transportation needs, ensuring
+                comfort and style.</h5>
+        </div>
+        <div class="card-item">
+            <iconify-icon icon="uim:calender" style="color: orange;" width="100" height="100"></iconify-icon>
+            <h1>10+</h1>
+            <h2>Years Experience</h2>
+            <h5>Bringing more than a decade of experience, we take pride in our expertise, providing reliable services
+                since our establishment.</h5>
+        </div>
+        <div class="card-item">
+            <iconify-icon icon="mdi:drivers-license" style="color: orange;" width="100" height="100"></iconify-icon>
+            <h1>300+</h1>
+            <h2>Drivers</h2>
+            <h5>Our team comprises over 300 skilled and licensed drivers, ensuring your safety and a smooth journey
+                every time.</h5>
+        </div>
+    </div>
+    <div class="about-section">
+        <img src="{% static 'images/homepagemahindra.jpg' %}" alt="" srcset="">
+        <div class="about-text">
+            <h1 class="aboutmaintext">ABOUT CHELO RIDE CAR RENTALS</h1>
+            <h2>We are dedicated to serving you with excellence.</h2>
+            <ul>
+                <li>Embarked on its journey in 2008 at Candolim, located just south of the renowned Vizag beach, a
+                    popular tourist destination.
+                    Trailblazer in shaping the personal ground transportation industry in Vizag.</li>
+                <li>At Chelo Ride Rentals, we believe in providing more than just a ride; we offer an experience. Our
+                    commitment to quality service and customer satisfaction has made us a trusted choice for individuals
+                    seeking reliable and comfortable transportation.</li>
+                <li>
+                    Whether you're a tourist exploring the beauty of Vizag or a local resident in need of convenient and
+                    safe transportation, Chelo Ride Rentals is always here for you.
+                    Experience the difference with us!
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+
+<!--carsdisplay-->
+<h1 class="cgheading">Your Cars</h1>
+<div class="carsdisplay">
+<div id="carouselExampleCaptions" class="carousel slide" data-bs-ride="carousel" data-bs-interval="1500">
+    <div class="carousel-indicators">
+      <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+      <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="1" aria-label="Slide 2"></button>
+      <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="2" aria-label="Slide 3"></button>
+      <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="3" aria-label="Slide 4"></button>
+
+    </div>
+    <div class="carousel-inner">
+      <div class="carousel-item active">
+        <img src="{% static 'images/cars/car1.jpg' %}" class="d-block w-100" alt="...">
+        <div class="carousel-caption d-none d-md-block">
+          <h5>First slide label</h5>
+          <p>Some representative placeholder content for the first slide.</p>
+        </div>
+      </div>
+      <div class="carousel-item">
+        <img src="{% static 'images/cars/car2.jpg' %}" class="d-block w-100" alt="...">
+        <div class="carousel-caption d-none d-md-block">
+          <h5>Second slide label</h5>
+          <p>Some representative placeholder content for the second slide.</p>
+        </div>
+      </div>
+      <div class="carousel-item">
+        <img src="{% static 'images/cars/car3.jpg' %}" class="d-block w-100" alt="...">
+        <div class="carousel-caption d-none d-md-block">
+          <h5>Third slide label</h5>
+          <p>Some representative placeholder content for the third slide.</p>
+        </div>
+      </div>
+      <div class="carousel-item">
+        <img src="{% static 'images/cars/car4.jpg' %}" class="d-block w-100" alt="...">
+        <div class="carousel-caption d-none d-md-block">
+          <h5>Third slide label</h5>
+          <p>Some representative placeholder content for the third slide.</p>
+        </div>
+      </div>
+    </div>
+    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="prev">
+      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Previous</span>
+    </button>
+    <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="next">
+      <span class="carousel-control-next-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Next</span>
+    </button>
+  </div>
+</div>
+
+<div class="gallery">
+    <div>
+        <img src="{% static 'images/cars/car1.jpg' %}" alt="" srcset="">
+        <h5>Lorem ipsum dolor sit amet, consectetur</h5>
+    </div>
+    <div>
+        <img src="{% static 'images/cars/car2.jpg' %}" alt="" srcset="">
+        <h5>Lorem ipsum dolor sit amet, consectetur</h5>
+    </div>    <div>
+        <img src="{% static 'images/cars/car3.jpg' %}" alt="" srcset="">
+        <h5>Lorem ipsum dolor sit amet, consectetur</h5>
+    </div>    <div>
+        <img src="{% static 'images/cars/car4.jpg' %}" alt="" srcset="">
+        <h5>Lorem ipsum dolor sit amet, consectetur</h5>
+    </div>    <div>
+        <img src="{% static 'images/cars/car1.jpg' %}" alt="" srcset="">
+        <h5>Lorem ipsum dolor sit amet, consectetur</h5>
+    </div>
+  
+</div>
+
+
 {% endblock %}

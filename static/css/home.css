@@ -97,6 +97,95 @@ color: white !important
   background: #000000 !important
 }
 
+
+.info-card{
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  flex-direction: row;
+  align-content: center;
+  gap: 15px;
+  padding: 20px;
+  background-color: #000000;
+}
+.card-item{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  width: 10%;
+  color: white;
+
+}
+.card-item h1 {
+  font-size:xx-large;
+  font-weight: bolder;
+}
+
+.card-item h2 {
+  font-size: large;
+  font-weight: bold;
+  color: #ffa500;
+}
+
+.card-item h5 {
+  font-size: small;
+  font-weight:normal;
+}
+
+
+.about-section {
+  background-color: #000000;
+  color: white;
+display: flex;
+justify-content: space-between;
+align-items: center;
+flex-direction: row;
+}
+.about-section img{
+  width: 50%;
+}
+.about-text {
+  width: 100%;
+  max-width: 800px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+.about-text h1{
+  font-size: xx-large;
+  font-weight: bolder;
+  color: #ffa500;
+}
+.about-text h2{
+  font-size: x-large;
+  font-weight: bold;
+}
+.about-text ul li{
+  font-size: large;
+  font-weight: normal;
+  padding: 10px;
+  
+}
+.gallery{
+  display: grid;
+  grid-template-columns: repeat(4, 1fr); 
+  gap: 1px;
+  justify-content: center;
+  margin: 20px;
+  text-align: center;
+}
+.gallery img{
+  width: 100%;
+}
+.cgheading{
+  font-size: xx-large;
+  font-weight: bolder;
+  text-transform: uppercase;
+  text-align: center;
+  
+}
 @media only screen and (max-width: 768px) {
   .form {
     flex-direction: column;
@@ -113,4 +202,35 @@ color: white !important
     font-size: 20px !important;
     width: 70% !important;
   }
+  .info-card{
+    flex-direction: column;
+    align-content: center;
+  
+  }
+  .card-item{
+    width: 100%;
+  
+  }
+  .about-section{
+    flex-direction: column;
+  }
+  .about-section img{
+    width: 100%;
+  }
+
+    .about-text {
+        max-width: 100%;
+    }
+    .carsdisplay{
+      margin: 0rem;
+    }
+    .gallery{
+      grid-template-columns: repeat(2, 1fr); 
+  
+    }
+    .gallery h5{
+      font-size: xx-small;
+    }
+
 }
+

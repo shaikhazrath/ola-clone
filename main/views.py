@@ -6,7 +6,8 @@ from datetime import datetime
 
 
 def home(request):
-    return render(request ,'Home.html')
+    unique_cities = Car.objects.values_list('city', flat=True).distinct()
+    return render(request ,'Home.html',{'unique_cities':unique_cities})
 
 def getcars(request):
     if request.method == 'POST':
